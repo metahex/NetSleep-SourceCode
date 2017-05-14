@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 
 /**
  * Created by emre on 08.04.2016.
+ * Taken from stackoverflow
  */
 public class ControlNetworkLollipop {
     public static String getTransactionCode(Context context) throws Exception {
@@ -28,9 +29,7 @@ public class ControlNetworkLollipop {
             field.setAccessible(true);
             return String.valueOf(field.getInt(null));
         } catch (Exception e) {
-            // The "TRANSACTION_setDataEnabled" field is not available,
-            // or named differently in the current API level, so we throw
-            // an exception and inform users that the method is not available.
+
             throw e;
         }
     }
