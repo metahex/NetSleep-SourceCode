@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NetSleep</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="wifi">WIFI aygıtını kapat</string>
+    <string name="bt">Bluetooth aygıtını kapat</string>
+    <string name="mobileData">Mobil datayı kapat (3G veya LTE)</string>
+    <string name="whenScreenLocked">Ekran kilitlendiği zaman</string>
+    <string name="disableAll">Hepsini devredışı bırak</string>
+    <string name="serviceEnabledNotif">NetSleep servisi etkin</string>
+    <string name="showNotification">Servis aktiflik bildirimini göster</string>
+    <string name="thereIsNoMobileDataFeature">Cihazınızda bu özellik yok.</string>
+    <string name="mobileDataFeatureForLollipop">Android 5.0 ve üstü cihazlarda bu özellik root izni gerektirmektedir.</string>
+</resources>
