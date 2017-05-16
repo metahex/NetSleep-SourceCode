@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("4b5d467c88b7bd63").addTestDevice("04157df47a383a0c").build());
 
     }
-    public boolean deviceHasMobileDataFeature(){
+    private boolean deviceHasMobileDataFeature(){
         return getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
     }
 
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.showAdWhenLoaded(0);
                 }
             }
-        }, (long) (extraDelay + 350));
+        }, (long) (extraDelay + 400));
     }
 
     private boolean isRootGiven(){

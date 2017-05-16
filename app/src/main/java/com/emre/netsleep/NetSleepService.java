@@ -32,7 +32,7 @@ public class NetSleepService extends Service {
                     .setContentIntent(pIntent)
                     .setOngoing(true).build();
         }
-        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+        noti.flags |= Notification.FLAG_FOREGROUND_SERVICE;
         notificationManager.notify(12, noti);
     }
     private void closeNotif() {

@@ -21,8 +21,6 @@ public class PreferencesManager {
     public boolean getPref(String prefName) {
         File file = new File("/data/data/com.emre.netsleep/files/"+prefName);
 
-        boolean abc = false;
-
         StringBuilder text = new StringBuilder();
 
         try {
@@ -38,12 +36,8 @@ public class PreferencesManager {
         } catch (Exception e) {
 
         }
-
-        if (text.toString().equals("1")){
-            abc = true;
-        }
-
-        return abc;
+		
+        return text.toString().equals("1");
     }
 
     public boolean isPrefNull(String prefName){

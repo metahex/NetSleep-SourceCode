@@ -5,8 +5,6 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
-
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -54,17 +52,17 @@ public class ControlNetworkLollipop {
             }
         }
     }
+	
     public static boolean isMobileDataEnabledFromLollipop(Context context) {
         boolean state = false;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             state = Settings.Global.getInt(context.getContentResolver(), "mobile_data", 0) == 1;
         }
         if (state) {
-            Log.d("mobile data", "enabled");
+           // Log.d("mobile data", "enabled");
         }
         return state;
     }
-
 
     public static void setMobileNetworkfromLollipop(Context context,int state) throws Exception {
         String command = null;

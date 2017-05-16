@@ -12,9 +12,9 @@ public class ScreenReceiver extends BroadcastReceiver {
 
     private PreferencesManager preferencesManager;
     private NetworkManagement networkManagement;
-    boolean need_open_wifi = false;
-    boolean need_open_bt = false;
-    boolean need_open_mobile_data = false;
+    private boolean need_open_wifi = false;
+    private boolean need_open_bt = false;
+    private boolean need_open_mobile_data = false;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
