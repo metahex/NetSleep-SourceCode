@@ -22,7 +22,6 @@ public class ScreenReceiver extends BroadcastReceiver {
         networkManagement = new NetworkManagement(context);
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
 
-
             if (preferencesManager.getPref(StaticVariables.WIFI)) {
                 if (need_open_wifi) {
                     networkManagement.toggleWIFI(true);
