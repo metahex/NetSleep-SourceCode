@@ -21,9 +21,9 @@ public class NetSleepService extends Service {
     private PreferencesManager preferencesManager;
 
     private void createNotification(Context context, String text) {
+		
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         Notification noti = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
             noti = new Notification.Builder(context)
@@ -33,13 +33,10 @@ public class NetSleepService extends Service {
                     .setOngoing(true).build();
         }
         noti.flags |= Notification.FLAG_FOREGROUND_SERVICE;
-        notificationManager.notify(12, noti);
+		startForeground(12,noti);
+    
     }
-    private void closeNotif() {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.cancelAll();
-    }
-
+   
     @Override
     public void onCreate(){
         super.onCreate();
@@ -63,9 +60,6 @@ public class NetSleepService extends Service {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        if (preferencesManager.getPref(StaticVariables.NOTIFY)){
-            closeNotif();
-        }
         unregisterCPUResting();
     }
 
