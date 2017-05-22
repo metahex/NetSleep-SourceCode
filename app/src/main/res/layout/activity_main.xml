@@ -35,7 +35,8 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="102dp"
         android:text="@string/wifi"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/btSwitch"
@@ -50,7 +51,8 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="147dp"
         android:text="@string/bt"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
 
 
     <android.support.v7.widget.SwitchCompat
@@ -66,7 +68,8 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="194dp"
         android:text="@string/mobileData"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/showNotificationSwitch"
@@ -81,7 +84,8 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="241dp"
         android:text="@string/showNotification"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/slogan"
@@ -110,5 +114,13 @@
         android:text="@string/disableAll"
         android:textColor="#FFF"
         android:theme="@style/ButtonTheme" />
+
+    <com.google.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/add_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-5942424100141990/9156432662"/>
 
 </RelativeLayout>

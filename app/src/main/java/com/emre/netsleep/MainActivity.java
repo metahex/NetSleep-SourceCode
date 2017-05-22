@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,6 +22,7 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd;
+    private AdView adview;
     private PreferencesManager preferencesManager;
     private View view;
     private Button disable_all;
@@ -142,6 +144,11 @@ public class MainActivity extends AppCompatActivity {
                 stopNetSleepService();
             }
         });
+
+
+        adview = (AdView)findViewById(R.id.add_view);
+
+        adview.loadAd(new AdRequest.Builder().build());
 
         new Thread(new Runnable() {
             @Override
