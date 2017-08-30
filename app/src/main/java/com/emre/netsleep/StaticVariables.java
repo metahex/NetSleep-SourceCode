@@ -9,5 +9,6 @@ public class StaticVariables {
     public static String BLUETOOTH = "bt";
     public static String MOBILE_DATA = "md";
     public static String NOTIFY = "notify";
+    public static String BATTERY_SAVER = "bs";
     public static String BANNER = "ca-app-pub-5942424100141990/1450512660";
 }

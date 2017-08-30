@@ -7,6 +7,7 @@
     <string name="whenScreenLocked">When screen locked</string>
     <string name="disableAll">Disable all</string>
     <string name="showNotification">Show notification at status bar</string>
+    <string name="batterySaverString">Enable internal battery saver</string>
     <string name="serviceEnabledNotif">NetSleep service is active</string>
     <string name="thereIsNoMobileDataFeature">Your device has no mobile data feature.</string>
     <string name="mobileDataFeatureForLollipop">We need root permission for this feature at Android 5.0 and above.</string>

@@ -17,9 +17,11 @@ public class ScreenReceiver extends BroadcastReceiver {
     private boolean need_open_mobile_data = false;
 
     @Override
-    public void onReceive(final Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         preferencesManager = new PreferencesManager(context);
-        networkManagement = new NetworkManagement(context);
+	    if (preferencesManager.getPref(StaticVariables.MOBILE_DATA)) {
+               networkManagement = new NetworkManagement(context);
+        }
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
 
             if (preferencesManager.getPref(StaticVariables.WIFI)) {
@@ -40,6 +42,9 @@ public class ScreenReceiver extends BroadcastReceiver {
                 }
             }
 
+            if (preferencesManager.getPref(StaticVariables.BATTERY_SAVER)) {
+                BatteryControlAPI.toggleBatterySaver(false);
+            }
         }
         else if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
 
@@ -55,6 +60,10 @@ public class ScreenReceiver extends BroadcastReceiver {
                     if (networkManagement.isBluetoothEnabled()) {
                         networkManagement.toggleBluetooth(false);
                     }
+                }
+
+                if (preferencesManager.getPref(StaticVariables.BATTERY_SAVER)) {
+                    BatteryControlAPI.toggleBatterySaver(true);
                 }
 
                 if (preferencesManager.getPref(StaticVariables.MOBILE_DATA)) {

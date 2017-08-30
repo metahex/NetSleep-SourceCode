@@ -63,8 +63,7 @@ public class NetworkManagement {
     public void toggleMobileData(boolean toggle){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             try {
-                ControlNetworkLollipop.setMobileNetworkfromLollipop(context1, booleanToInt(toggle));
-                Log.d("result:", String.valueOf(booleanToInt(toggle)));
+                ControlNetworkLollipop.toggleMobileData(toggle);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -9,5 +9,6 @@
     <string name="serviceEnabledNotif">NetSleep servisi etkin</string>
     <string name="showNotification">Servis aktiflik bildirimini göster</string>
     <string name="thereIsNoMobileDataFeature">Cihazınızda bu özellik yok.</string>
+    <string name="batterySaverString">Dahili pil tasarruf modunu etkinleştir</string>
     <string name="mobileDataFeatureForLollipop">Android 5.0 ve üstü cihazlarda bu özellik root izni gerektirmektedir.</string>
 </resources>

@@ -5,13 +5,14 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Toast;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -26,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private PreferencesManager preferencesManager;
     private View view;
     private Button disable_all;
-    private SwitchCompat wifiSwitch, btSwitch, mobileDataSwitch, showNotificationSwitch;
+    private SwitchCompat wifiSwitch, btSwitch, mobileDataSwitch, showNotificationSwitch ,
+    batterySaverSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         view = findViewById(R.id.layout_main);
         wifiSwitch = (SwitchCompat) findViewById(R.id.wifiSwitch);
         showNotificationSwitch = (SwitchCompat) findViewById(R.id.showNotificationSwitch);
+        batterySaverSwitch = (SwitchCompat) findViewById(R.id.batterySaver);
         disable_all = (Button) findViewById(R.id.disable_all);
         btSwitch = (SwitchCompat) findViewById(R.id.btSwitch);
         mobileDataSwitch = (SwitchCompat) findViewById(R.id.mobileDataSwitch);
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if (!preferencesManager.isPrefNull(StaticVariables.NOTIFY)) {
             showNotificationSwitch.setChecked(preferencesManager.getPref(StaticVariables.NOTIFY));
+        }
+        if (!preferencesManager.isPrefNull(StaticVariables.BATTERY_SAVER)) {
+            batterySaverSwitch.setChecked(preferencesManager.getPref(StaticVariables.BATTERY_SAVER));
         }
 
         wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                             }else {
 
-                                makeSnack(getString(R.string.mobileDataFeatureForLollipop),"OK");
+                                makeSnack(getString(R.string.mobileDataFeatureForLollipop));
                                 mobileDataSwitch.setChecked(false);
 
                             }
@@ -117,11 +123,49 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }else {
-                        makeSnack(getString(R.string.thereIsNoMobileDataFeature),"OK");
+                        makeSnack(getString(R.string.thereIsNoMobileDataFeature));
                         mobileDataSwitch.setChecked(false);
                     }
                 }
             });
+
+
+
+
+
+
+        batterySaverSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+                    if (isRootGiven()) {
+
+                        preferencesManager.setPref(StaticVariables.BATTERY_SAVER, b);
+                        if (b) {
+                            startNetSleepService();
+                        }
+                        if (!wifiSwitch.isChecked() && !btSwitch.isChecked() && !b && !mobileDataSwitch.isChecked()) {
+                            stopNetSleepService();
+                        }
+
+                    } else {
+
+                        makeSnack(getString(R.string.mobileDataFeatureForLollipop));
+                        batterySaverSwitch.setChecked(false);
+
+                    }
+
+                } else {
+                    batterySaverSwitch.setChecked(false);
+                }
+            }
+        });
+
+
+
+
+
 
         showNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -141,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 mobileDataSwitch.setChecked(false);
                 wifiSwitch.setChecked(false);
                 btSwitch.setChecked(false);
+                batterySaverSwitch.setChecked(false);
                 stopNetSleepService();
             }
         });
@@ -181,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.showAdWhenLoaded(0);
                 }
             }
-        }, (long) (extraDelay + 400));
+        }, (long) (extraDelay + 500));
     }
 
     private boolean isRootGiven(){
@@ -223,8 +268,7 @@ public class MainActivity extends AppCompatActivity {
         TerminalCommand.command("su");
     }
 
-    private void makeSnack(String a,String ok){
-        Snackbar.make(view, a, Snackbar.LENGTH_LONG)
-                .setAction(ok, null).show();
+    private void makeSnack(String a){
+        Toast.makeText(this, a, Toast.LENGTH_LONG).show();
     }
 }
