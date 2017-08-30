@@ -15,7 +15,7 @@ public class ControlNetworkLollipop {
             state = Settings.Global.getInt(context.getContentResolver(), "mobile_data", 0) == 1;
         }
         if (state) {
-           // Log.d("mobile data", "enabled");
+
         }
         return state;
     }

@@ -1,5 +1,7 @@
 package com.emre.netsleep;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private InterstitialAd mInterstitialAd;
     private AdView adview;
     private PreferencesManager preferencesManager;
-    private View view;
     private Button disable_all;
     private SwitchCompat wifiSwitch, btSwitch, mobileDataSwitch, showNotificationSwitch ,batterySaverSwitch;
 
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         preferencesManager = new PreferencesManager(this);
 
-        view = findViewById(R.id.layout_main);
         wifiSwitch = (SwitchCompat) findViewById(R.id.wifiSwitch);
         showNotificationSwitch = (SwitchCompat) findViewById(R.id.showNotificationSwitch);
         batterySaverSwitch = (SwitchCompat) findViewById(R.id.batterySaver);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 if (b){
                     startNetSleepService();
                 }
-                if (!mobileDataSwitch.isChecked() && !btSwitch.isChecked() && !b){
+                if (!mobileDataSwitch.isChecked() && !batterySaverSwitch.isChecked() && !btSwitch.isChecked() && !b){
                     stopNetSleepService();
                 }
             }
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if (b){
                     startNetSleepService();
                 }
-                if (!wifiSwitch.isChecked() && !mobileDataSwitch.isChecked() && !b){
+                if (!wifiSwitch.isChecked() && !batterySaverSwitch.isChecked() && !mobileDataSwitch.isChecked() && !b){
                     stopNetSleepService();
                 }
             }
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (b) {
                                     startNetSleepService();
                                 }
-                                if (!wifiSwitch.isChecked() && !btSwitch.isChecked() && !b) {
+                                if (!wifiSwitch.isChecked() && !batterySaverSwitch.isChecked() && !btSwitch.isChecked() && !b) {
                                     stopNetSleepService();
                                 }
 
@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         showAdWhenLoaded(0);
         mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("4b5d467c88b7bd63").addTestDevice("04157df47a383a0c").build());
 
+        x();
     }
     private boolean deviceHasMobileDataFeature(){
         return getPackageManager().hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
@@ -232,15 +233,33 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void x(){
         if (!mobileDataSwitch.isChecked()
                 && !batterySaverSwitch.isChecked()
                 && !btSwitch.isChecked()
                 && !wifiSwitch.isChecked()){
-                    stopNetSleepService();
+            stopNetSleepService();
+        }else {
+            if (!isMyServiceRunning(NetSleepService.class)) {
+                startNetSleepService();
+            }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        x();
     }
 
     private void startNetSleepService(){

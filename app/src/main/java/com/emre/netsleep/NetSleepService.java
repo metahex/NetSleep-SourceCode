@@ -20,7 +20,6 @@ public class NetSleepService extends Service {
     private PreferencesManager preferencesManager;
 
     private void createNotification(Context context, String text) {
-		
         Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
         Notification noti = null;
@@ -33,7 +32,6 @@ public class NetSleepService extends Service {
         }
         noti.flags |= Notification.FLAG_FOREGROUND_SERVICE;
 		startForeground(12,noti);
-    
     }
    
     @Override
