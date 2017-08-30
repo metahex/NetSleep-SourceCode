@@ -2,6 +2,7 @@ package com.emre.netsleep;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Toast;
-
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private PreferencesManager preferencesManager;
     private View view;
     private Button disable_all;
-    private SwitchCompat wifiSwitch, btSwitch, mobileDataSwitch, showNotificationSwitch ,
-    batterySaverSwitch;
+    private SwitchCompat wifiSwitch, btSwitch, mobileDataSwitch, showNotificationSwitch ,batterySaverSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,10 +129,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
 
-
-
-
-
         batterySaverSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -150,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     } else {
-
                         makeSnack(getString(R.string.mobileDataFeatureForLollipop));
                         batterySaverSwitch.setChecked(false);
 
@@ -161,11 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
-
 
         showNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -195,12 +184,9 @@ public class MainActivity extends AppCompatActivity {
 
         adview.loadAd(new AdRequest.Builder().build());
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                rootRequest();
-            }
-        }).start();
+        if (!isRootGiven()){
+            new GET_ROOT().execute();
+        }
 
         this.mInterstitialAd = new InterstitialAd(this);
         this.mInterstitialAd.setAdUnitId(StaticVariables.BANNER);
@@ -246,12 +232,32 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!mobileDataSwitch.isChecked()
+                && !batterySaverSwitch.isChecked()
+                && !btSwitch.isChecked()
+                && !wifiSwitch.isChecked()){
+                    stopNetSleepService();
+        }
+    }
+
     private void startNetSleepService(){
         try {
             Intent i = new Intent(this, NetSleepService.class);
             startService(i);
         }catch (Exception e) {
 
+        }
+    }
+
+    private class GET_ROOT extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            rootRequest();
+            return null;
         }
     }
 

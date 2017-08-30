@@ -36,7 +36,8 @@
         android:layout_marginTop="102dp"
         android:text="@string/wifi"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/btSwitch"
@@ -52,7 +53,8 @@
         android:layout_marginTop="147dp"
         android:text="@string/bt"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp" />
 
 
     <android.support.v7.widget.SwitchCompat
@@ -69,7 +71,8 @@
         android:layout_marginTop="194dp"
         android:text="@string/mobileData"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/showNotificationSwitch"
@@ -85,7 +88,8 @@
         android:layout_marginTop="241dp"
         android:text="@string/showNotification"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp" />
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/batterySaver"
@@ -99,9 +103,10 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="283dp"
+        android:fontFamily="sans-serif-light"
+        android:textSize="17sp"
         android:text="@string/batterySaverString"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp" />
+        android:textColor="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/slogan"
@@ -115,7 +120,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="sans-serif-light"
         android:text="@string/whenScreenLocked"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp" />
@@ -124,18 +129,26 @@
         android:id="@+id/disable_all"
         android:layout_width="150dp"
         android:layout_height="65dp"
-        android:layout_below="@+id/mobileDataSwitch"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
         android:text="@string/disableAll"
         android:textColor="#FFF"
-        android:theme="@style/ButtonTheme" />
+        android:background="@color/colorPrimaryDark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/add_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="430dp"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-5942424100141990/9156432662"/>
+        ads:adUnitId="ca-app-pub-5942424100141990/9156432662" />
 </RelativeLayout>
